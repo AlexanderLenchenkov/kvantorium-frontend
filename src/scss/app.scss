@@ -1,0 +1,13 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+	background-color: #edeef0;
+}
+
+#root {
+	height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+}
