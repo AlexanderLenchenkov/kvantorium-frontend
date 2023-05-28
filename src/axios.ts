@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+export const mainURL = 'https://kvantorium-backend.onrender.com';
+
 const instance = axios.create({
-	baseURL: 'https://kvantorium-backend.onrender.com/api',
+	baseURL: `${mainURL}/api`,
 });
 
 instance.interceptors.request.use((config) => {

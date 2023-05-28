@@ -5,6 +5,7 @@ import { Project } from '../../redux/project/types';
 import { User } from '../../redux/user/types';
 import { fetchRemoveProject } from '../../redux/project/asyncActions';
 import { useAppDispatch } from '../../redux/store';
+import { mainURL } from '../../axios';
 
 type ProjectCardProps = {
 	project: Project;
@@ -71,7 +72,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEditable }) => {
 			{imageUrl && (
 				<img
 					className=" max-h-[500px] min-w-full opacity-80 object-cover rounded-md md:mr-4"
-					src={`http://localhost:4444${imageUrl}`}
+					src={`${mainURL}${imageUrl}`}
 					alt="preview"
 				/>
 			)}
