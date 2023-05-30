@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../redux/auth/slice';
 import { selectIsAuth } from '../redux/auth/selectors';
 import { useAppDispatch } from '../redux/store';
+import { mainURL } from '../axios';
 
 const Header: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -36,7 +37,11 @@ const Header: React.FC = () => {
 			<div className="bg-white">
 				<div className="container font-semibold text-base mx-auto py-3 flex justify-between items-center">
 					<Link to="/" className="">
-						<img className="h-11 w-auto" src="/img/logo.png" alt="Logo" />
+						<img
+							className="h-11 w-auto"
+							src={`${mainURL}/uploads/categories/logo.png`}
+							alt="Logo"
+						/>
 					</Link>
 					<nav className="hidden lg:flex">
 						<ul className="inline-flex items-center">

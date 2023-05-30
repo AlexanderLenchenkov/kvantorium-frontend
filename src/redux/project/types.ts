@@ -8,8 +8,8 @@ export type Project = {
 	category: string;
 	tags: string[];
 	viewsCount: number;
-	dateStart: string;
-	dateEnd: string;
+	dateStart: Date;
+	dateEnd: Date;
 	imageUrl: string;
 	projectUrl: string;
 	teacher: User;

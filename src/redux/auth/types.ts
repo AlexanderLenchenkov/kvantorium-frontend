@@ -1,4 +1,5 @@
 import { Status } from '../types';
+import { User } from '../user/types';
 
 export type AuthParams = {
 	login: string;
@@ -6,6 +7,6 @@ export type AuthParams = {
 };
 
 export interface AuthSliceState {
-	data: string | null;
+	data: User | null;
 	status: Status;
 }

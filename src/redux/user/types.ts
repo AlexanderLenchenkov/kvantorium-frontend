@@ -6,6 +6,7 @@ export type User = {
 	firstName: string;
 	patronymic: string;
 	isAdmin: boolean;
+	token?: string;
 };
 
 export interface UserSliceState {

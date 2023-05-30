@@ -33,7 +33,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEditable }) => {
 	};
 
 	return (
-		<div className="flex flex-wrap border-4 border-transperent rounded-xl bg-white border-gray-200 relative hover:shadow-lg  hover:border-blue-500 transition-all ease-in-out duration-500 p-5">
+		<div className="flex flex-wrap border-2 border-transparent rounded-xl bg-white  relative hover:shadow-lg  hover:border-blue-500 transition-all ease-in-out duration-500 p-5">
 			{isEditable && (
 				<div className="z-10 flex gap-2 absolute top-7 right-7">
 					<span
