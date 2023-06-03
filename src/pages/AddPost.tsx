@@ -16,7 +16,7 @@ import { fetchCategories } from '../redux/category/asyncActions';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import { Project } from '../redux/project/types';
-import Dropzone from 'react-dropzone';
+// import Dropzone from 'react-dropzone';
 import { Button, Card, Input, Typography } from '@material-tailwind/react';
 import { InformationCircleIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
