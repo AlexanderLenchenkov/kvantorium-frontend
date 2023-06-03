@@ -436,8 +436,8 @@ const AddPost: React.FC = () => {
 								)}
 							/>
 						</div>
-						<div className="border border-gray-300">
-							{/* <Editor
+						{/* <div className="border border-gray-300">
+							<Editor
 								onInit={(evt, editor) => (editorRef.current = editor)}
 								initialValue="<p>This is the initial content of the editor.</p>"
 								init={{
@@ -455,9 +455,9 @@ const AddPost: React.FC = () => {
 										'removeformat | help',
 									content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
 								}}
-							/> */}
+							/>
 							<Button onClick={log}>Log</Button>
-						</div>
+						</div> */}
 						<div className="mt-5 flex items-center justify-end gap-2">
 							<Button variant="text">Отмена</Button>
 							<Button type="submit" variant="gradient">
