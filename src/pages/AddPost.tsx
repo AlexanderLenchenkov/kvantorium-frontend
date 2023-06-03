@@ -89,7 +89,7 @@ const AddPost: React.FC = () => {
 				// setImageUrl(data.imageUrl);
 				setValue('name', data.name);
 				setValue('tags', data.tags.reduce((res, tag) => `${res},${tag}`, '').slice(1, -1));
-				setValue('category', data.category);
+				setValue('category', data.category._id);
 				setValue('teacher', data.teacher._id);
 				setValue(
 					'students',
