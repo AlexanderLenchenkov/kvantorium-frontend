@@ -71,7 +71,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEditable }) => {
 			)}
 			{imageUrl && (
 				<img
-					className=" max-h-[500px] min-w-full opacity-80 object-cover rounded-md md:mr-4"
+					className=" max-h-[500px] min-w-full opacity-80 object-cover rounded-md mb-3"
 					src={`${mainURL}${imageUrl}`}
 					alt="preview"
 				/>
@@ -83,7 +83,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEditable }) => {
 							{name}
 						</h3>
 					</Link>
-					<p className="text-gray-500">{description}</p>
+					{/* <p className="text-gray-500">{description}</p> */}
 				</div>
 				<div className="flex flex-col mt-2 text-gray-600">
 					<div>

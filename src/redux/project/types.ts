@@ -1,3 +1,4 @@
+import { Category } from '../category/types';
 import { Status } from '../types';
 import { User } from '../user/types';
 
@@ -5,7 +6,7 @@ export type Project = {
 	_id: string;
 	name: string;
 	description: number;
-	category: string;
+	category: Category;
 	tags: string[];
 	viewsCount: number;
 	dateStart: Date;
@@ -22,3 +23,8 @@ export interface ProjectSliceState {
 		status: Status;
 	};
 }
+
+export type SearchProjectParams = {
+	name: string;
+	category: string;
+};

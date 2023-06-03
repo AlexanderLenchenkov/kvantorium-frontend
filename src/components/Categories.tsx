@@ -6,13 +6,19 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 type CategoriesProps = {
 	items: Category[];
+	onChange: (id: string) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = ({ items }) => {
+const Categories: React.FC<CategoriesProps> = ({ items, onChange }) => {
 	const [selected, setSelected] = React.useState(items[0]);
 
+	const handleChangeSearch = (value: Category) => {
+		setSelected(value);
+		onChange(value._id);
+	};
+
 	return (
-		<Listbox value={selected} onChange={setSelected}>
+		<Listbox value={selected} onChange={handleChangeSearch}>
 			<div className="relative mt-1">
 				<Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
 					<span className="flex items-center gap-2 truncate">

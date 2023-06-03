@@ -4,6 +4,7 @@ import project from './project/slice';
 import auth from './auth/slice';
 import user from './user/slice';
 import category from './category/slice';
+import filter from './filter/slice';
 
 export const store = configureStore({
 	reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
 		auth,
 		user,
 		category,
+		filter,
 	},
 });
 

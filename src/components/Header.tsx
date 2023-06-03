@@ -11,13 +11,6 @@ const Header: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const isAuth = useSelector(selectIsAuth);
 
-	const onClickLogout = () => {
-		if (window.confirm('Вы действительно хотите выйти?')) {
-			dispatch(logout());
-			window.localStorage.removeItem('token');
-		}
-	};
-
 	const [isMenuOpened, setIsMenuOpened] = useState(false);
 	return (
 		<header className="flex flex-col">
@@ -89,23 +82,7 @@ const Header: React.FC = () => {
 							</li>
 						</ul>
 					</nav>
-					<div className="flex items-center gap-3">
-						<div className="hidden lg:gap-2 lg:flex">
-							{isAuth && (
-								<>
-									<Link
-										to="/add-project"
-										className="block rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-										Добавить проект
-									</Link>
-									<button
-										onClick={onClickLogout}
-										className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-										Выйти
-									</button>
-								</>
-							)}
-						</div>
+					<div className="flex lg:hidden items-center gap-3">
 						<div
 							onClick={() => setIsMenuOpened((prev) => !prev)}
 							className="flex lg:hidden z-30 flex-col justify-between">
@@ -137,7 +114,7 @@ const Header: React.FC = () => {
 						</div>
 						<div
 							className={clsx(
-								'burger-menu absolute z-20 bg-white top-0 left-0 w-full h-full overflow-y-clip',
+								'burger-menu absolute z-20 bg-white top-0 left-0 w-screen py-5  overflow-hidden ',
 								isMenuOpened || 'hidden',
 							)}>
 							<nav className="flex h-full justify-center items-center">

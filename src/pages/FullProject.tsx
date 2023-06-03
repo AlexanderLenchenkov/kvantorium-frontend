@@ -23,16 +23,16 @@ const FullProject: React.FC = () => {
 		setIsLoading(false);
 	}, []);
 
-	const formatDate = (dateStr: string): string => {
-		// const formatDate = data
-		// 	? new Date(dateStr).toLocaleDateString('ru', {
-		// 			year: 'numeric',
-		// 			month: 'long',
-		// 			day: 'numeric',})
-		// 	: '';
-		// return formatDate;
-		return dateStr;
-	};
+	// const formatDate = (dateStr: string): string => {
+	// 	// const formatDate = data
+	// 	// 	? new Date(dateStr).toLocaleDateString('ru', {
+	// 	// 			year: 'numeric',
+	// 	// 			month: 'long',
+	// 	// 			day: 'numeric',})
+	// 	// 	: '';
+	// 	// return formatDate;
+	// 	return dateStr;
+	// };
 
 	if (!data) {
 		return <div>download...</div>;
@@ -52,6 +52,7 @@ const FullProject: React.FC = () => {
 				) : null}
 				<div className="p-10">
 					<h1 className="text-8xl font-black">{data.name}</h1>
+					<div className="mt-5">{data.category.name}</div>
 					<div className="mt-5 flex justify-between">
 						<ul className="flex gap-4">
 							{data.tags.map((tag, index) => (
@@ -60,9 +61,7 @@ const FullProject: React.FC = () => {
 						</ul>
 						<div className="flex text-gray-500 gap-2 text-xl">
 							<div className="font-semibold italic">Даты:</div>
-							<div className="font-bold">{`${formatDate(data.dateStart)} - ${formatDate(
-								data.dateEnd,
-							)}`}</div>
+							{/* <div className="font-bold">{`${data.dateStart.getUTCDate()} - ${data.dateEnd.getUTCDate()}`}</div> */}
 						</div>
 					</div>
 					<div className="flex gap-4 mt-5">

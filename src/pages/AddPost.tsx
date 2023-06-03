@@ -17,7 +17,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import { Project } from '../redux/project/types';
 import Dropzone from 'react-dropzone';
-import { Button, Input } from '@material-tailwind/react';
+import { Button, Card, CardHeader, Input, Typography } from '@material-tailwind/react';
+import { InformationCircleIcon } from '@heroicons/react/20/solid';
+import clsx from 'clsx';
+import { Editor } from '@tinymce/tinymce-react';
 
 interface ProjectFields {
 	name: string;
@@ -28,8 +31,8 @@ interface ProjectFields {
 	dateEnd?: Date;
 	teacher: string;
 	students: string[];
-	imageUrl: string;
-	projectUrl: string;
+	imageUrl: File;
+	projectUrl: File[];
 }
 
 interface Option {
@@ -43,6 +46,7 @@ const AddPost: React.FC = () => {
 		handleSubmit,
 		formState: { errors },
 		setValue,
+		getValues,
 		control,
 	} = useForm<ProjectFields>({ mode: 'onChange' });
 
@@ -99,6 +103,8 @@ const AddPost: React.FC = () => {
 		};
 		loadData();
 	}, []);
+
+	const files = React.useState<File>();
 
 	// const handleChangeFile = async (event: any) => {
 	// 	try {
@@ -171,10 +177,6 @@ const AddPost: React.FC = () => {
 	// 	[],
 	// );
 
-	if (!window.localStorage.getItem('token') && !isAuth) {
-		return <Navigate to="/" />;
-	}
-
 	const getTeacherValue = (value: string) => {
 		return value ? userOptions.find((option) => option.value === value) : '';
 	};
@@ -188,206 +190,278 @@ const AddPost: React.FC = () => {
 		return value ? userOptions.filter((option) => value.includes(option.value)) : [];
 	};
 
+	const editorRef = React.useRef(null);
+	const log = () => {
+		if (editorRef.current) {
+			console.log(editorRef.current.getContent());
+		}
+	};
+
+	// if (!window.localStorage.getItem('token') && !isAuth) {
+	// 	return <Navigate to="/" />;
+	// }
+
 	return (
 		<div className="container  mx-auto ">
-			<div className=" bg-white p-5 my-7 rounded-xl">
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<input
+					{...register('imageUrl', {
+						required: {
+							value: true,
+							message: 'pfuhepb afqk',
+						},
+					})}
+					type="file"
+				/>
+				<img src={getValues('imageUrl').webkitRelativePath} alt="" />
+				{errors.imageUrl && <div>{errors.imageUrl.message}</div>}
+				<button>send</button>
+			</form>
+
+			<Card className="p-5 my-7 rounded-xl" shadow={false}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<Controller
-						control={control}
-						name="projectUrl"
-						render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
-							<>
-								<Dropzone onDrop={onChange}>
-									{({ getRootProps, getInputProps }) => (
-										<div
-											className="w-full h-[300px] bg-gray-100 rounded-md flex justify-center items-center"
-											{...getRootProps()}>
-											<input name="projectUrl" onBlur={onBlur} {...getInputProps()} type="text" />
-											<p>Drag 'n' drop files here, or click to select files</p>
-										</div>
-									)}
-								</Dropzone>
-								<div>
-									{/* {value.map((f, index) => (
-										<span key={index}>f.name</span>
-									))} */}
-									{value}
-								</div>
-							</>
-						)}
-					/>
-					;
-					<div className="mt-3">
-						<Input
-							variant="static"
-							size="lg"
-							className="text text-3xl"
-							labelProps={{ className: 'text-2xl text font-bold' }}
-							{...register('name', {
-								required: {
-									value: true,
-									message: 'Наименование обязательное поле!',
-								},
-							})}
-							placeholder="Наименование проекта..."
-						/>
-						<input
-							{...register('name', {
-								required: {
-									value: true,
-									message: 'Наименование обязательное поле!',
-								},
-							})}
-							placeholder="Наименование проекта..."
-							type="text"
-							className="block w-full text-2xl sm:text-4xl font-bold border-0 outline-none py-1.5 text-gray-900"
-						/>
-						{errors.name && (
-							<span className="w-full text-center text-red-600">{errors.name.message}</span>
-						)}
-					</div>
-					<div className="mt-2">
-						{/* <input
-							{...register('tags', {
-								required: {
-									value: true,
-									message: 'Наименование обязательное поле!',
-								},
-							})}
-							placeholder="Тэги..."
-							type="text"
-							className="block w-full text-xl border-b-2 outline-none hover:border-gray-700 focus:border-blue-500 py-1.5 text-gray-900 "
-						/> */}
-						<Input
-							variant="static"
-							{...register('tags', {
-								required: {
-									value: true,
-									message: 'Наименование обязательное поле!',
-								},
-							})}
-							placeholder="aboba"
-							label="Теги"></Input>
-						{errors.tags && (
-							<span className="w-full text-center text-red-600">{errors.tags.message}</span>
-						)}
-					</div>
-					<div className="mt-3">
+					<div className="flex flex-col gap-5">
 						<Controller
 							control={control}
-							name="category"
-							rules={{
-								required: {
-									value: true,
-									message: 'Jlkjflkds',
-								},
-							}}
-							render={({ field: { onChange, value } }) => (
-								<Select
-									placeholder="Выберите квантум..."
-									options={categoryOptions}
-									value={getCategoryValue(value)}
-									onChange={(newValue) => onChange((newValue as Option).value)}
-								/>
+							name="projectUrl"
+							render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+								<>
+									<Dropzone onDrop={onChange}>
+										{({ getRootProps, getInputProps }) => (
+											<div
+												className="w-full h-[300px] bg-gray-100 rounded-md flex justify-center items-center"
+												{...getRootProps()}>
+												<input name="projectUrl" onBlur={onBlur} {...getInputProps()} type="text" />
+												<p>Drag 'n' drop files here, or click to select files</p>
+											</div>
+										)}
+									</Dropzone>
+									<div>
+										{value.map((f, index) => (
+											<span key={index}>f.name</span>
+										))}
+										{/* {value} */}
+									</div>
+								</>
 							)}
 						/>
-						{errors.category && (
-							<span className="w-full text-center text-red-600">{errors.category.message}</span>
-						)}
-					</div>
-					<div className="mt-3">
-						<Controller
-							control={control}
-							name="teacher"
-							rules={{
-								required: {
-									value: true,
-									message: 'Jlkjflkds',
-								},
-							}}
-							render={({ field: { onChange, value } }) => (
-								<Select
-									placeholder="Выберите руководителя..."
-									options={userOptions}
-									value={getTeacherValue(value)}
-									onChange={(newValue) => onChange((newValue as Option).value)}
-								/>
+						<div>
+							<Input
+								variant="static"
+								size="lg"
+								error={!!errors.name}
+								labelProps={{ className: 'text-2xl text font-bold' }}
+								{...register('name', {
+									required: {
+										value: true,
+										message: 'Заполните наименование!',
+									},
+								})}
+								placeholder="Наименование проекта..."
+							/>
+							{errors.name && (
+								<Typography
+									variant="small"
+									color="red"
+									className="flex items-center gap-1 font-normal mt-1">
+									<InformationCircleIcon className="w-4 h-4 -mt-px" />
+									{errors.name.message}
+								</Typography>
 							)}
-						/>
-						{errors.teacher && (
-							<span className="w-full text-center text-red-600">{errors.teacher.message}</span>
-						)}
-					</div>
-					<div className="mt-3">
-						<Controller
-							control={control}
-							name="students"
-							rules={{
-								required: {
-									value: true,
-									message: 'Jlkjflkds',
-								},
-							}}
-							render={({ field: { onChange, value } }) => (
-								<Select
-									isMulti={true}
-									placeholder="Выберите участников..."
-									options={userOptions}
-									value={getStudentsValue(value)}
-									onChange={(newValue) =>
-										onChange((newValue as Option[]).map((option) => option.value))
-									}
-								/>
+						</div>
+						<div>
+							<Input
+								variant="static"
+								{...register('tags', {
+									required: {
+										value: true,
+										message: 'Заполните теги!',
+									},
+								})}
+								placeholder="Теги..."
+								label="Теги"></Input>
+							{errors.tags && (
+								<Typography
+									variant="small"
+									color="red"
+									className="flex items-center gap-1 font-normal mt-1">
+									<InformationCircleIcon className="w-4 h-4 -mt-px" />
+									{errors.tags.message}
+								</Typography>
 							)}
-						/>
-						{errors.teacher && (
-							<span className="w-full text-center text-red-600">{errors.teacher.message}</span>
-						)}
-					</div>
-					<div className="mt-3">
-						<Controller
-							control={control}
-							name="dateStart"
-							rules={{
-								required: {
-									value: true,
-									message: 'Jlkjflkds',
-								},
-							}}
-							render={({ field: { onChange, value } }) => (
-								<DatePicker
-									className="border border-gray-300 rounded-md w-full p-2"
-									placeholderText="Дата начала..."
-									onChange={(date) => onChange(date)}
-									selected={value}
-									dateFormat="dd.MM.yyyy"
-								/>
+						</div>
+
+						<div>
+							<Typography variant="small" className={clsx('text-gray-600 mb-1')}>
+								Квантум
+							</Typography>
+							<Controller
+								control={control}
+								name="category"
+								rules={{
+									required: {
+										value: true,
+										message: 'Jlkjflkds',
+									},
+								}}
+								render={({ field: { onChange, value } }) => (
+									<Select
+										aria-label="fsdf"
+										placeholder="Выберите квантум..."
+										options={categoryOptions}
+										value={getCategoryValue(value)}
+										onChange={(newValue) => onChange((newValue as Option).value)}
+									/>
+								)}
+							/>
+							{errors.category && (
+								<Typography
+									variant="small"
+									color="red"
+									className="flex items-center gap-1 font-normal mt-1">
+									<InformationCircleIcon className="w-4 h-4 -mt-px" />
+									{errors.category.message}
+								</Typography>
 							)}
-						/>
-					</div>
-					<div className="mt-3">
-						<Controller
-							control={control}
-							name="dateEnd"
-							rules={{
-								required: {
-									value: true,
-									message: 'Jlkjflkds',
-								},
-							}}
-							render={({ field: { onChange, value } }) => (
-								<DatePicker
-									className="border border-gray-300 rounded-md w-full p-2"
-									placeholderText="Дата конца..."
-									onChange={(date) => onChange(date)}
-									selected={value}
-									dateFormat="dd.MM.yyyy"
-								/>
+						</div>
+						<div>
+							<Typography variant="small" className={clsx('text-gray-600 mb-1')}>
+								Руководитель
+							</Typography>
+							<Controller
+								control={control}
+								name="teacher"
+								rules={{
+									required: {
+										value: true,
+										message: 'Jlkjflkds',
+									},
+								}}
+								render={({ field: { onChange, value } }) => (
+									<Select
+										placeholder="Выберите руководителя..."
+										options={userOptions}
+										value={getTeacherValue(value)}
+										onChange={(newValue) => onChange((newValue as Option).value)}
+									/>
+								)}
+							/>
+							{errors.category && (
+								<Typography
+									variant="small"
+									color="red"
+									className="flex items-center gap-1 font-normal mt-1">
+									<InformationCircleIcon className="w-4 h-4 -mt-px" />
+									{errors.category.message}
+								</Typography>
 							)}
-						/>
-					</div>
-					<div className="styles-buttons">
-						<div className="mt-6 flex items-center justify-end gap-x-2">
+						</div>
+						<div>
+							<Typography variant="small" className={clsx('text-gray-600 mb-1')}>
+								Участники
+							</Typography>
+							<Controller
+								control={control}
+								name="students"
+								rules={{
+									required: {
+										value: true,
+										message: 'Jlkjflkds',
+									},
+								}}
+								render={({ field: { onChange, value } }) => (
+									<Select
+										isMulti={true}
+										placeholder="Выберите участников..."
+										options={userOptions}
+										value={getStudentsValue(value)}
+										onChange={(newValue) =>
+											onChange((newValue as Option[]).map((option) => option.value))
+										}
+									/>
+								)}
+							/>
+							{errors.category && (
+								<Typography
+									variant="small"
+									color="red"
+									className="flex items-center gap-1 font-normal mt-1">
+									<InformationCircleIcon className="w-4 h-4 -mt-px" />
+									{errors.category.message}
+								</Typography>
+							)}
+						</div>
+						<div>
+							<Typography variant="small" className={clsx('text-gray-600 mb-1')}>
+								Дата начала проекта
+							</Typography>
+							<Controller
+								control={control}
+								name="dateStart"
+								rules={{
+									required: {
+										value: true,
+										message: 'Jlkjflkds',
+									},
+								}}
+								render={({ field: { onChange, value } }) => (
+									<DatePicker
+										className="border border-gray-300 rounded-md w-full p-2"
+										placeholderText="Дата начала..."
+										onChange={(date) => onChange(date)}
+										selected={value}
+										dateFormat="dd.MM.yyyy"
+									/>
+								)}
+							/>
+						</div>
+						<div>
+							<Typography variant="small" className={clsx('text-gray-600 mb-1')}>
+								Дата окончания проекта
+							</Typography>
+							<Controller
+								control={control}
+								name="dateEnd"
+								rules={{
+									required: {
+										value: true,
+										message: 'Jlkjflkds',
+									},
+								}}
+								render={({ field: { onChange, value } }) => (
+									<DatePicker
+										className="border border-gray-300 rounded-md w-full p-2"
+										placeholderText="Дата конца..."
+										onChange={(date) => onChange(date)}
+										selected={value}
+										dateFormat="dd.MM.yyyy"
+									/>
+								)}
+							/>
+						</div>
+						<div className="border border-gray-300">
+							<Editor
+								onInit={(evt, editor) => (editorRef.current = editor)}
+								initialValue="<p>This is the initial content of the editor.</p>"
+								init={{
+									height: 500,
+									menubar: true,
+									plugins: [
+										'advlist autolink lists link image charmap print preview anchor',
+										'searchreplace visualblocks code fullscreen',
+										'insertdatetime media table paste code help wordcount',
+									],
+									toolbar:
+										'undo redo | formatselect | ' +
+										'bold italic backcolor | alignleft aligncenter ' +
+										'alignright alignjustify | bullist numlist outdent indent | ' +
+										'removeformat | help',
+									content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+								}}
+							/>
+							<Button onClick={log}>Log</Button>
+						</div>
+						<div className="mt-5 flex items-center justify-end gap-2">
 							<Button variant="text">Отмена</Button>
 							<Button type="submit" variant="gradient">
 								{isEditing ? 'Сохранить' : 'Опубликовать'}
@@ -429,7 +503,7 @@ const AddPost: React.FC = () => {
 				/>
 				
 			</div> */}
-			</div>
+			</Card>
 		</div>
 	);
 };

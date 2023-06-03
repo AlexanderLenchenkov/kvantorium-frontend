@@ -18,6 +18,12 @@ const categorySlice = createSlice({
 		});
 		builder.addCase(fetchCategories.fulfilled, (state, action) => {
 			state.items = action.payload;
+			state.items.unshift({
+				_id: 'all',
+				name: 'Все',
+				imageUrl: '/uploads/categories/photonics.png',
+				description: '',
+			});
 			state.status = Status.SUCCESS;
 		});
 		builder.addCase(fetchCategories.rejected, (state) => {

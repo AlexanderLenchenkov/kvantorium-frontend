@@ -6,6 +6,7 @@ import { fetchCategories } from '../redux/category/asyncActions';
 import { useSelector } from 'react-redux';
 import { selectCategories } from '../redux/category/selectors';
 import { Status } from '../redux/types';
+import { setCategoryId, setName } from '../redux/filter/slice';
 
 type FilterBlockProps = {
 	className?: string | undefined;
@@ -19,11 +20,19 @@ const FilterBlock: React.FC<FilterBlockProps> = ({ className }) => {
 		dispatch(fetchCategories);
 	}, []);
 
+	const onChangeCategory = React.useCallback((id: string) => {
+		dispatch(setCategoryId(id));
+	}, []);
+
+	const onChangeSearch = React.useCallback((value: string) => {
+		dispatch(setName(value));
+	}, []);
+
 	return (
 		<div className={className}>
 			<div>
 				<h5 className="font-bold text-lg uppercase text-gray-700 mb-2">Поиск:</h5>
-				<Search />
+				<Search onChange={onChangeSearch} />
 			</div>
 
 			{categories.status === Status.LOADING ? (
@@ -31,7 +40,7 @@ const FilterBlock: React.FC<FilterBlockProps> = ({ className }) => {
 			) : (
 				<div>
 					<h5 className="font-bold text-lg uppercase text-gray-700 mb-2">Квантум:</h5>
-					<Categories items={categories.items} />
+					<Categories onChange={onChangeCategory} items={categories.items} />
 				</div>
 			)}
 		</div>
