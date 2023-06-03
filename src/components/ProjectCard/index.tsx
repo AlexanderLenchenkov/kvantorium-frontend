@@ -16,7 +16,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEditable }) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	const { _id, name, imageUrl, description, students, teacher } = project;
+	const { _id, name, imageUrl, students, teacher } = project;
 	const teacherFullName = `${teacher.lastName} ${teacher.firstName}`;
 
 	const studentsFullName = students
