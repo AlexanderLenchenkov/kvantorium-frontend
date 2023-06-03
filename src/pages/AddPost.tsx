@@ -1,12 +1,12 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React from 'react';
 // import SimpleMDE from 'react-simplemde-editor';
 // import 'easymde/dist/easymde.min.css';
 import axios from '../axios';
 import { useSelector } from 'react-redux';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { useAppDispatch } from '../redux/store';
-import { selectIsAuth } from '../redux/auth/selectors';
 import { selectCategories } from '../redux/category/selectors';
 import { selectUsers } from '../redux/user/selectors';
 import { Status } from '../redux/types';
@@ -17,10 +17,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import { Project } from '../redux/project/types';
 import Dropzone from 'react-dropzone';
-import { Button, Card, CardHeader, Input, Typography } from '@material-tailwind/react';
+import { Button, Card, Input, Typography } from '@material-tailwind/react';
 import { InformationCircleIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
-import { Editor } from '@tinymce/tinymce-react';
+// import { Editor } from '@tinymce/tinymce-react';
 
 interface ProjectFields {
 	name: string;
@@ -73,9 +73,6 @@ const AddPost: React.FC = () => {
 			  )
 			: [];
 
-	const isAuth = useSelector(selectIsAuth);
-	const inputFileRef = React.useRef(null);
-
 	const isEditing = Boolean(id);
 
 	React.useEffect(() => {
@@ -104,7 +101,7 @@ const AddPost: React.FC = () => {
 		loadData();
 	}, []);
 
-	const files = React.useState<File>();
+	// const files = React.useState<File>();
 
 	// const handleChangeFile = async (event: any) => {
 	// 	try {
@@ -190,12 +187,12 @@ const AddPost: React.FC = () => {
 		return value ? userOptions.filter((option) => value.includes(option.value)) : [];
 	};
 
-	const editorRef = React.useRef(null);
-	const log = () => {
-		if (editorRef.current) {
-			console.log(editorRef.current.getContent());
-		}
-	};
+	// const editorRef = React.useRef(null);
+	// const log = () => {
+	// 	if (editorRef.current) {
+	// 		console.log(editorRef.current.getContent());
+	// 	}
+	// };
 
 	// if (!window.localStorage.getItem('token') && !isAuth) {
 	// 	return <Navigate to="/" />;
