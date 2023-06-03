@@ -218,30 +218,6 @@ const AddPost: React.FC = () => {
 			<Card className="p-5 my-7 rounded-xl" shadow={false}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className="flex flex-col gap-5">
-						<Controller
-							control={control}
-							name="projectUrl"
-							render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
-								<>
-									<Dropzone onDrop={onChange}>
-										{({ getRootProps, getInputProps }) => (
-											<div
-												className="w-full h-[300px] bg-gray-100 rounded-md flex justify-center items-center"
-												{...getRootProps()}>
-												<input name="projectUrl" onBlur={onBlur} {...getInputProps()} type="text" />
-												<p>Drag 'n' drop files here, or click to select files</p>
-											</div>
-										)}
-									</Dropzone>
-									<div>
-										{value.map((f, index) => (
-											<span key={index}>f.name</span>
-										))}
-										{/* {value} */}
-									</div>
-								</>
-							)}
-						/>
 						<div>
 							<Input
 								variant="static"

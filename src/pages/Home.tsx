@@ -1,14 +1,11 @@
 import React from 'react';
-import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { fetchProjects } from '../redux/project/asyncActions';
 import { fetchCategories } from '../redux/category/asyncActions';
 import { selectIsAuth } from '../redux/auth/selectors';
-import { selectCategories } from '../redux/category/selectors';
 import { selectProjects } from '../redux/project/selectors';
 import { Status } from '../redux/types';
 import ProjectCard from '../components/ProjectCard';
-import Categories from '../components/Categories';
 import { useAppDispatch } from '../redux/store';
 import FilterBlock from '../components/FilterBlock';
 import { selectFilter } from '../redux/filter/selectors';
