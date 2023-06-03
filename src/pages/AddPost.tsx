@@ -4,7 +4,7 @@ import React from 'react';
 // import 'easymde/dist/easymde.min.css';
 import axios from '../axios';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { useAppDispatch } from '../redux/store';
 import { selectCategories } from '../redux/category/selectors';
@@ -16,7 +16,7 @@ import { fetchCategories } from '../redux/category/asyncActions';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import { Project } from '../redux/project/types';
-// import Dropzone from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import { Button, Card, Input, Typography } from '@material-tailwind/react';
 import { InformationCircleIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
@@ -46,7 +46,7 @@ const AddPost: React.FC = () => {
 		handleSubmit,
 		formState: { errors },
 		setValue,
-		// getValues,
+		getValues,
 		control,
 	} = useForm<ProjectFields>({ mode: 'onChange' });
 
@@ -218,6 +218,30 @@ const AddPost: React.FC = () => {
 			<Card className="p-5 my-7 rounded-xl" shadow={false}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className="flex flex-col gap-5">
+						<Controller
+							control={control}
+							name="projectUrl"
+							render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+								<>
+									<Dropzone onDrop={onChange}>
+										{({ getRootProps, getInputProps }) => (
+											<div
+												className="w-full h-[300px] bg-gray-100 rounded-md flex justify-center items-center"
+												{...getRootProps()}>
+												<input name="projectUrl" onBlur={onBlur} {...getInputProps()} type="text" />
+												<p>Drag 'n' drop files here, or click to select files</p>
+											</div>
+										)}
+									</Dropzone>
+									<div>
+										{value.map((f, index) => (
+											<span key={index}>f.name</span>
+										))}
+										{/* {value} */}
+									</div>
+								</>
+							)}
+						/>
 						<div>
 							<Input
 								variant="static"
@@ -435,7 +459,9 @@ const AddPost: React.FC = () => {
 							<Button onClick={log}>Log</Button>
 						</div> */}
 						<div className="mt-5 flex items-center justify-end gap-2">
-							<Button variant="text">Отмена</Button>
+							<Button onClick={() => <Navigate to="/" />} variant="text">
+								Отмена
+							</Button>
 							<Button type="submit" variant="gradient">
 								{isEditing ? 'Сохранить' : 'Опубликовать'}
 							</Button>
