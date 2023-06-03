@@ -1,16 +1,9 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../redux/auth/slice';
-import { selectIsAuth } from '../redux/auth/selectors';
-import { useAppDispatch } from '../redux/store';
 import { mainURL } from '../axios';
 
 const Header: React.FC = () => {
-	const dispatch = useAppDispatch();
-	const isAuth = useSelector(selectIsAuth);
-
 	const [isMenuOpened, setIsMenuOpened] = useState(false);
 	return (
 		<header className="flex flex-col">

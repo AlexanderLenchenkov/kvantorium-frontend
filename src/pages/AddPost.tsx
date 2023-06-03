@@ -200,7 +200,7 @@ const AddPost: React.FC = () => {
 
 	return (
 		<div className="container  mx-auto ">
-			<form onSubmit={handleSubmit(onSubmit)}>
+			{/* <form onSubmit={handleSubmit(onSubmit)}>
 				<input
 					{...register('imageUrl', {
 						required: {
@@ -213,7 +213,7 @@ const AddPost: React.FC = () => {
 				<img src={getValues('imageUrl').webkitRelativePath} alt="" />
 				{errors.imageUrl && <div>{errors.imageUrl.message}</div>}
 				<button>send</button>
-			</form>
+			</form> */}
 
 			<Card className="p-5 my-7 rounded-xl" shadow={false}>
 				<form onSubmit={handleSubmit(onSubmit)}>
