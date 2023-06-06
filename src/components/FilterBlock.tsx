@@ -57,6 +57,7 @@ const FilterBlock: React.FC = () => {
 				onChange={(e) => onChangeSearch(e.target.value)}
 				variant="static"
 				label="Поиск"
+				placeholder="Поиск"
 			/>
 
 			{categories.status === Status.LOADING ? (
