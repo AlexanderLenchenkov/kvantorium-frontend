@@ -208,12 +208,21 @@ const AddPost: React.FC = () => {
 	};
 
 	const handleRemoveImage = async () => {
-		const fields: any = {
-			file: getValues('imageUrl'),
-		};
-		const { data } = await axios.delete('/upload', fields);
+		// const fields: any = {
+		// 	file: getValues('imageUrl'),
+		// };
+		// const { data } = await axios.delete('/upload', fields);
+		// console.log(data);
+		setValue('imageUrl', '');
+	};
 
-		console.log(data);
+	const handleRemoveProject = async () => {
+		// const fields: any = {
+		// 	file: getValues('imageUrl'),
+		// };
+		// const { data } = await axios.delete('/upload', fields);
+		// console.log(data);
+		setValue('projectUrl', '');
 	};
 
 	const getTeacherValue = (value: string) => {
@@ -574,7 +583,7 @@ const AddPost: React.FC = () => {
 												{value ? 'Обновить проект' : 'Добавить проект'}
 											</Button>
 											{value && (
-												<Button size="sm" onClick={() => handleRemoveImage()} color="red">
+												<Button size="sm" onClick={() => handleRemoveProject()} color="red">
 													Удалить
 												</Button>
 											)}
