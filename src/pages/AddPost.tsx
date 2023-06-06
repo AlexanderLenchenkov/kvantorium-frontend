@@ -35,7 +35,6 @@ const AddPost: React.FC = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-		getValues,
 		setValue,
 		control,
 	} = useForm<ProjectFields>({ mode: 'onChange' });
