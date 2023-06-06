@@ -4,7 +4,7 @@ import React, { ChangeEvent } from 'react';
 // import 'easymde/dist/easymde.min.css';
 import axios, { mainURL } from '../axios';
 import { useSelector } from 'react-redux';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { useAppDispatch } from '../redux/store';
 import { selectCategories } from '../redux/category/selectors';

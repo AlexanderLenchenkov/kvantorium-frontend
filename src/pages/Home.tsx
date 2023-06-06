@@ -12,7 +12,7 @@ import { selectFilter } from '../redux/filter/selectors';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/auth/slice';
 import emptyImg from '../assets/empty.png';
-import { Button, Card, Spinner, Typography } from '@material-tailwind/react';
+import { Button, Spinner, Typography } from '@material-tailwind/react';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 
 const Home: React.FC = () => {

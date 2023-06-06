@@ -8,7 +8,6 @@ import { setCategoryId, setName } from '../redux/filter/slice';
 import { Card, Input, Spinner, Typography } from '@material-tailwind/react';
 import Select from 'react-select';
 import debounce from 'lodash.debounce';
-import { Category } from '../redux/category/types';
 
 interface Option {
 	value: string;
