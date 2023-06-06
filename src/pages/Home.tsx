@@ -41,6 +41,7 @@ const Home: React.FC = () => {
 	};
 
 	React.useEffect(() => {
+		document.title = 'Кванториум';
 		dispatch(fetchCategories()).then(() => getProjects());
 	}, []);
 

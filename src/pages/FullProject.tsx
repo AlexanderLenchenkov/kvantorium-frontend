@@ -23,6 +23,9 @@ const FullProject: React.FC = () => {
 				alert('Ошибка при получении статьи');
 			});
 		setIsLoading(false);
+		if (data) {
+			document.title = data?.name;
+		}
 	}, []);
 
 	if (!data) {

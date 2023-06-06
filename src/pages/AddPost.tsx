@@ -77,7 +77,7 @@ const AddPost: React.FC = () => {
 	const isEditing = Boolean(id);
 
 	React.useEffect(() => {
-		document.title = 'Добавление проекта';
+		document.title = id ? 'Редактирование проекта' : 'Добавление проекта';
 		dispatch(fetchUsers());
 		dispatch(fetchCategories());
 

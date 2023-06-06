@@ -22,6 +22,10 @@ const Login: React.FC = () => {
 		mode: 'onChange',
 	});
 
+	React.useEffect(() => {
+		document.title = 'Авторизация';
+	}, []);
+
 	const onSubmit = async (data: AuthParams) => {
 		const auth = await dispatch(fetchAuth(data));
 
