@@ -35,7 +35,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEditable }) => {
 			className="flex flex-col gap-y-2 border-2 border-transparent rounded-md bg-white  relative hover:shadow-lg  hover:border-blue-500 transition-all ease-in-out duration-500 p-3">
 			<div className="flex flex-col gap-y-2">
 				<Link to={`/projects/${_id}`}>
-					<Typography className="hover:text-blue-500" variant="h4" color="gray">
+					<Typography className="hover:text-blue-500" variant="h3" color="gray">
 						{name}
 					</Typography>
 				</Link>
