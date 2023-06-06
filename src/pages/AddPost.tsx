@@ -89,7 +89,7 @@ const AddPost: React.FC = () => {
 					setValue('projectUrl', data.projectUrl);
 					setValue('name', data.name);
 					setValue('description', data.description);
-					setValue('tags', data.tags.reduce((res, tag) => `${res},${tag}`, '').slice(1, -1));
+					setValue('tags', data.tags.reduce((res, tag) => `${res}${tag},`, '').slice(0, -1));
 					setValue('category', data.category._id);
 					setValue('teacher', data.teacher._id);
 					setValue(

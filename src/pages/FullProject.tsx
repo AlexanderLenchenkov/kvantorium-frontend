@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import axios, { mainURL } from '../axios';
 import { Project } from '../redux/project/types';
-import { Card, Spinner, Typography } from '@material-tailwind/react';
+import { Button, Card, Spinner, Typography } from '@material-tailwind/react';
 import { EyeIcon } from '@heroicons/react/24/outline';
 
 const FullProject: React.FC = () => {
@@ -89,6 +89,14 @@ const FullProject: React.FC = () => {
 								</Link>
 							))}
 						</div>
+
+						{data.projectUrl && (
+							<a className="my-4" href={`${mainURL}${data.projectUrl}`} target="_blank" download>
+								<Button color="green" fullWidth>
+									Скачать проект
+								</Button>
+							</a>
+						)}
 
 						<Typography className="text-gray-400 font-bold flex gap-1 items-center">
 							<EyeIcon strokeWidth={2} className="w-6 h-6" />
