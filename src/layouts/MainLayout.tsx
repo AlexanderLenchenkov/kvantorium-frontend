@@ -7,7 +7,7 @@ const MainLayout: React.FC = () => {
 	return (
 		<>
 			<Header />
-			<main>
+			<main className="flex">
 				<Outlet />
 			</main>
 			<Footer />

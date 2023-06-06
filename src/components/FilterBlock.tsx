@@ -1,49 +1,79 @@
 import React from 'react';
-import Search from './Search';
-import Categories from './Categories';
 import { useAppDispatch } from '../redux/store';
 import { fetchCategories } from '../redux/category/asyncActions';
 import { useSelector } from 'react-redux';
 import { selectCategories } from '../redux/category/selectors';
 import { Status } from '../redux/types';
 import { setCategoryId, setName } from '../redux/filter/slice';
+import { Card, Input, Spinner, Typography } from '@material-tailwind/react';
+import Select from 'react-select';
+import debounce from 'lodash.debounce';
+import { Category } from '../redux/category/types';
 
-type FilterBlockProps = {
-	className?: string | undefined;
-};
+interface Option {
+	value: string;
+	label: string;
+}
 
-const FilterBlock: React.FC<FilterBlockProps> = ({ className }) => {
+const FilterBlock: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const categories = useSelector(selectCategories);
+	const [search, setSearch] = React.useState('');
+
+	const categoryOptions: Option[] = [{ _id: 'all', name: 'Все' }, ...categories.items].map(
+		(item) => ({ value: item._id, label: item.name } as Option),
+	);
+
+	const [selectedCategory, setSelectedCategory] = React.useState(categoryOptions[0]);
 
 	React.useEffect(() => {
 		dispatch(fetchCategories);
 	}, []);
 
-	const onChangeCategory = React.useCallback((id: string) => {
-		dispatch(setCategoryId(id));
-	}, []);
+	const onChangeSearch = (value: string) => {
+		setSearch(value);
+		updateSearchValue(value);
+	};
 
-	const onChangeSearch = React.useCallback((value: string) => {
-		dispatch(setName(value));
-	}, []);
+	const updateSearchValue = React.useCallback(
+		debounce((str: string) => {
+			dispatch(setName(str));
+		}, 500),
+		[],
+	);
+
+	const onChangeCategory = (value: string) => {
+		console.log(value);
+		dispatch(setCategoryId(value));
+		const newValue = categoryOptions.find((option) => option.value === value);
+		return setSelectedCategory(newValue ? newValue : categoryOptions[0]);
+	};
 
 	return (
-		<div className={className}>
-			<div>
-				<h5 className="font-bold text-lg uppercase text-gray-700 mb-2">Поиск:</h5>
-				<Search onChange={onChangeSearch} />
-			</div>
+		<Card
+			className="flex gap-y-3 w-full lg:mb-0 lg:sticky lg:top-3 lg:w-1/4 p-3 pt-6 rounded-md"
+			shadow={false}>
+			<Input
+				value={search}
+				onChange={(e) => onChangeSearch(e.target.value)}
+				variant="static"
+				label="Поиск"
+			/>
 
 			{categories.status === Status.LOADING ? (
-				<div>Загрузка...</div>
+				<Spinner className="m-auto w-10 h-10 my-5" />
 			) : (
 				<div>
-					<h5 className="font-bold text-lg uppercase text-gray-700 mb-2">Квантум:</h5>
-					<Categories onChange={onChangeCategory} items={categories.items} />
+					<Typography className="text-sm mb-1 text-gray-600">Квантум</Typography>
+					<Select
+						placeholder="Выберите категорию"
+						options={categoryOptions}
+						value={selectedCategory}
+						onChange={(newValue) => onChangeCategory((newValue as Option).value)}
+					/>
 				</div>
 			)}
-		</div>
+		</Card>
 	);
 };
 

@@ -8,6 +8,8 @@ import { AuthParams } from '../redux/auth/types';
 import { selectIsAuth } from '../redux/auth/selectors';
 import { useAppDispatch } from '../redux/store';
 import { User } from '../redux/user/types';
+import { Button, Input, Typography } from '@material-tailwind/react';
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
 const Login: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -40,44 +42,64 @@ const Login: React.FC = () => {
 
 	return (
 		<div className="container max-w-[500px] mx-auto">
-			<div className=" my-7 bg-white p-10 rounded-xl">
-				<h3 className="styles-title text-3xl font-bold text-gray-800 text-center mb-5">
+			<div className=" my-5 bg-white p-5 rounded-xl">
+				<Typography variant="h3" className="text-gray-800 text-center mb-4">
 					Вход в аккаунт
-				</h3>
+				</Typography>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className="mb-3">
-						<label className="block text-md font-semibold text-gray-700">Логин</label>
-						<div className="mt-2">
-							<input
-								{...register('login', { required: 'Укажите логин' })}
-								type="text"
-								className={clsx(
-									'block w-full outline-none text-xl rounded-sm p-2 border border-gray-300 py-1.5 text-gray-900',
-									errors.login?.message && 'border-red-600',
-								)}
+					<div className="flex flex-col gap-4">
+						<div>
+							<Input
+								variant="outlined"
+								size="lg"
+								label="Логин"
+								error={!!errors.login}
+								labelProps={{ className: 'text-2xl text font-bold' }}
+								{...register('login', {
+									required: {
+										value: true,
+										message: 'Заполните логин.',
+									},
+								})}
 							/>
-							<span className="w-full text-center text-red-600">{errors.login?.message}</span>
+							{errors.login && (
+								<Typography
+									variant="small"
+									color="red"
+									className="flex items-center gap-1 font-normal mt-1">
+									<InformationCircleIcon className="w-4 h-4 -mt-px" />
+									{errors.login.message}
+								</Typography>
+							)}
 						</div>
-					</div>
-					<div className="mb-5">
-						<label className="block text-md font-semibold text-gray-700">Пароль</label>
-						<div className="mt-2">
-							<input
-								{...register('password', { required: 'Укажите пароль' })}
+
+						<div>
+							<Input
 								type="password"
-								className={clsx(
-									'block w-full outline-none text-xl rounded-sm p-2 border border-gray-300 py-1.5 text-gray-900',
-									errors.password?.message && 'border-red-600',
-								)}
+								variant="outlined"
+								size="lg"
+								label="Пароль"
+								error={!!errors.password}
+								labelProps={{ className: 'text-2xl text font-bold' }}
+								{...register('password', {
+									required: {
+										value: true,
+										message: 'Заполните пароль.',
+									},
+								})}
 							/>
-							<span className="w-full text-center text-red-600">{errors.password?.message}</span>
+							{errors.password && (
+								<Typography
+									variant="small"
+									color="red"
+									className="flex items-center gap-1 font-normal mt-1">
+									<InformationCircleIcon className="w-4 h-4 -mt-px" />
+									{errors.password.message}
+								</Typography>
+							)}
 						</div>
+						<Button type="submit">Войти</Button>
 					</div>
-					<button
-						type="submit"
-						className="w-full uppercase rounded-md bg-blue-600 p-3 text-ьв font-semibold text-white hover:bg-blue-500">
-						Войти
-					</button>
 				</form>
 			</div>
 		</div>

@@ -5,7 +5,7 @@ import { User } from '../user/types';
 export type Project = {
 	_id: string;
 	name: string;
-	description: number;
+	description: string;
 	category: Category;
 	tags: string[];
 	viewsCount: number;
@@ -27,4 +27,18 @@ export interface ProjectSliceState {
 export type SearchProjectParams = {
 	name: string;
 	category: string;
+};
+
+export type ProjectFields = {
+	_id?: string;
+	name: string;
+	description: string;
+	tags?: string;
+	imageUrl?: string;
+	category: string;
+	dateStart?: Date;
+	dateEnd?: Date;
+	teacher: string;
+	students: string[];
+	projectUrl?: string;
 };
