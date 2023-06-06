@@ -17,15 +17,15 @@ const FullProject: React.FC = () => {
 			.get<Project>(`projects/${id}`)
 			.then((res) => {
 				setData(res.data);
+				if (data?.name) {
+					document.title = data.name;
+				}
 			})
 			.catch((err) => {
 				console.warn(err);
 				alert('Ошибка при получении статьи');
 			});
 		setIsLoading(false);
-		if (data) {
-			document.title = data?.name;
-		}
 	}, []);
 
 	if (!data) {
