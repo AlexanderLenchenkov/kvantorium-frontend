@@ -25,26 +25,9 @@ const FullProject: React.FC = () => {
 		setIsLoading(false);
 	}, []);
 
-	// const formatDate = (dateStr: string): string => {
-	// 	// const formatDate = data
-	// 	// 	? new Date(dateStr).toLocaleDateString('ru', {
-	// 	// 			year: 'numeric',
-	// 	// 			month: 'long',
-	// 	// 			day: 'numeric',})
-	// 	// 	: '';
-	// 	// return formatDate;
-	// 	return dateStr;
-	// };
-
 	if (!data) {
 		return <Spinner />;
 	}
-
-	// <ul className="flex gap-4">
-	// 							{data.tags.map((tag, index) => (
-	// 								<li className="text-gray-500 font-semibold text-xl" key={index}>{`#${tag}`}</li>
-	// 							))}
-	// 						</ul>
 
 	return isLoading ? (
 		<Spinner />
@@ -52,7 +35,9 @@ const FullProject: React.FC = () => {
 		<div className="container max-w-6xl my-5 mx-auto">
 			<Card className="flex bg-white flex-col text-gray-800 rounded-lg">
 				<div className="project-top p-4 flex flex-col gap-4">
-					<Typography variant="h1" className="text-6xl font-black">
+					<Typography
+						variant="h1"
+						className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black">
 						{data.name}
 					</Typography>
 
@@ -69,7 +54,7 @@ const FullProject: React.FC = () => {
 				<div className="projct-middle">
 					{data.imageUrl ? (
 						<img
-							className="w-full h-[600px] object-cover"
+							className="w-full xl:h-[600px] object-cover"
 							src={`${mainURL}${data.imageUrl}`}
 							alt="Preview"
 						/>
